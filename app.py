@@ -131,6 +131,16 @@ param['n_estimators'] = 200
 param['max_depth'] = 2
 param['nthread'] = 8
 param['learning_rate'] = 0.2
+# Let's train type indicator individually
+for l in range(len(type_indicators)):
+
+    Y = list_personality[:,l]
+
+
+        # fit model on training data
+    model = XGBClassifier(**param)
+    model.fit(X, Y)
+
 
 
 def give_rec(my_posts):
@@ -148,14 +158,7 @@ def give_rec(my_posts):
 # Let's train type indicator individually
     for l in range(len(type_indicators)):
 
-        Y = list_personality[:,l]
-
-
-        # fit model on training data
-        model = XGBClassifier(**param)
-        model.fit(X, Y)
-    
-        # make predictions for my  data
+       # make predictions for my  data
         y_pred = model.predict(my_X_tfidf)
         result.append(y_pred[0])
 
